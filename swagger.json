@@ -1,0 +1,168 @@
+{
+  "openapi": "3.0.0",
+  "paths": {
+    "/": {
+      "get": {
+        "operationId": "AppController_getHello",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "App"
+        ]
+      }
+    },
+    "/subjects": {
+      "post": {
+        "operationId": "SubjectsController_create",
+        "parameters": [],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubjectDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subjects"
+        ]
+      },
+      "get": {
+        "operationId": "SubjectsController_findAll",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subjects"
+        ]
+      }
+    },
+    "/subjects/{id}": {
+      "get": {
+        "operationId": "SubjectsController_findOne",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subjects"
+        ]
+      },
+      "patch": {
+        "operationId": "SubjectsController_update",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubjectDto"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subjects"
+        ]
+      },
+      "delete": {
+        "operationId": "SubjectsController_remove",
+        "parameters": [
+          {
+            "name": "id",
+            "required": true,
+            "in": "path",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": ""
+          }
+        },
+        "tags": [
+          "Subjects"
+        ]
+      }
+    }
+  },
+  "info": {
+    "title": "Api Swagger",
+    "description": "Implementation swagger docs",
+    "version": "1.0",
+    "contact": {
+      "name": "Cerebrum",
+      "url": "https://arquiteturaestacio.visualstudio.com/JUCA/_wiki/wikis/JUCA.wiki/22390/-Cerebrum-Tech-2025",
+      "email": "Team"
+    }
+  },
+  "tags": [
+    {
+      "name": "Subjects",
+      "description": "Disciplinas da grade curricular"
+    }
+  ],
+  "servers": [
+    {
+      "url": "0.0.0.0:3000",
+      "description": "local"
+    }
+  ],
+  "components": {
+    "schemas": {
+      "CreateSubjectDto": {
+        "type": "object",
+        "properties": {}
+      },
+      "UpdateSubjectDto": {
+        "type": "object",
+        "properties": {}
+      }
+    }
+  },
+  "externalDocs": {
+    "description": "Link documentacão técnica",
+    "url": "https://arquiteturaestacio.visualstudio.com/JUCA/_wiki/wikis/JUCA.wiki/22555/-DOC-missoes-recompensas-edge"
+  }
+}
