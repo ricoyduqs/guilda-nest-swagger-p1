@@ -17,6 +17,7 @@
     },
     "/subjects": {
       "post": {
+        "description": "Create a new subject",
         "operationId": "SubjectsController_create",
         "parameters": [],
         "requestBody": {
@@ -31,9 +32,17 @@
         },
         "responses": {
           "201": {
-            "description": ""
+            "description": "Retorna dados da anuidade alterada.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/CreateSubjectDto"
+                }
+              }
+            }
           }
         },
+        "summary": "Create a new subject",
         "tags": [
           "Subjects"
         ]
@@ -134,13 +143,17 @@
     "contact": {
       "name": "Cerebrum",
       "url": "https://arquiteturaestacio.visualstudio.com/JUCA/_wiki/wikis/JUCA.wiki/22390/-Cerebrum-Tech-2025",
-      "email": "Team"
+      "email": "ricardo.pena@yduqs.com.br"
     }
   },
   "tags": [
     {
       "name": "Subjects",
       "description": "Disciplinas da grade curricular"
+    },
+    {
+      "name": "App",
+      "description": ""
     }
   ],
   "servers": [
@@ -153,7 +166,16 @@
     "schemas": {
       "CreateSubjectDto": {
         "type": "object",
-        "properties": {}
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the subject",
+            "default": "Math"
+          }
+        },
+        "required": [
+          "name"
+        ]
       },
       "UpdateSubjectDto": {
         "type": "object",
