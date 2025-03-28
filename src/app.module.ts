@@ -1,10 +1,18 @@
 import { Module } from '@nestjs/common';
+import { ConfigModule } from '@nestjs/config';
+import { UserModule } from './user/user.module';
+import { TerminusModule } from '@nestjs/terminus';
 import { AppController } from './app.controller';
+import { HttpModule } from '@nestjs/axios';
 import { AppService } from './app.service';
-import { SubjectsModule } from './subjects/subjects.module';
 
 @Module({
-  imports: [SubjectsModule],
+  imports: [
+    TerminusModule,
+    HttpModule,
+    ConfigModule.forRoot({ isGlobal: true }),
+    UserModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
