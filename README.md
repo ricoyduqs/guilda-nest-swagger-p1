@@ -59,6 +59,13 @@ $ npm run start
 $ npm run start:dev
 ```
 
+## Generating swagger file standalone
+```bash
+# Gerar arquivo do Swagger standalone
+# No lugar de sua-uri você deve colocar o domínio da aplicação ou mesmo no seu .env
+$ export URI=http://sua-uri && npm run swagger:generate
+```
+
 ## Generating documents based on swagger file
 ```bash
 # Gerar arquivo no formato OpenApi para ser importado na API Gateway da AWS
@@ -84,6 +91,12 @@ Abra seu browser e acesso seu endereço local: [http://0.0.0.0:3000/api](http://
 - [Documentacão do OpenAPI no Nest](https://docs.nestjs.com/openapi/introduction)
 - Ferramenta de Score de OpenAPI [PB33F.io](https://pb33f.io).
 
+## Libraries
+- [class-transformer](https://github.com/typestack/class-transformer#readme)
+- [class-validator](https://github.com/typestack/class-validator)
+- [js-yaml](https://github.com/nodeca/js-yaml)
+- [widdershins](https://github.com/Mermade/widdershins)
+- [@redocly/cli](https://github.com/Redocly/redocly-cli)
 
 ## Stay in touch
 

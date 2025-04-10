@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { writeFileSync } from 'fs';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-import { AppModule } from './app.module';
-import { version } from '../package.json';
+import { AppModule } from '../app.module';
+import { version } from '../../package.json';
 
 async function generateSwagger() {
   const app = await NestFactory.create(AppModule);
@@ -20,7 +20,7 @@ async function generateSwagger() {
       'https://arquiteturaestacio.visualstudio.com/JUCA/_wiki/wikis/JUCA.wiki/22390/-Cerebrum-Tech-2025',
       'tarcisio@yduqs.com.br',
     )
-    .addTag('user', 'Collection of user endpoints') // As tags servem para mapear os endpoints rais linkando ao controller.
+    .addTag('user', 'Collection of user endpoints')
     .addTag('app', 'Collection of service endpoints such as healthcheck')
     .build();
 

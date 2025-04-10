@@ -51,7 +51,7 @@ paths:
       x-amazon-apigateway-integration:
         type: HTTP_PROXY
         httpMethod: POST
-        uri: http://your-api-url/user
+        uri: http://uri.application.aws.com/user
         payloadFormatVersion: 1
     get:
       description: Return all users
@@ -70,7 +70,7 @@ paths:
       x-amazon-apigateway-integration:
         type: HTTP_PROXY
         httpMethod: GET
-        uri: http://your-api-url/user
+        uri: http://uri.application.aws.com/user
         payloadFormatVersion: 1
   /user/{id}:
     get:
