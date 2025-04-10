@@ -1,4 +1,4 @@
-  <p align="center">Guilda de Backend - Documentação com Swagger P1 - 28 Mar 2025<p align="center">
+  <p align="center">Guilda de Backend - Documentação com Swagger P1 - 28 Mar e 11 de Abr de 2025<p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
@@ -94,9 +94,10 @@ Abra seu browser e acesso seu endereço local: [http://0.0.0.0:3000/api](http://
 ## Libraries
 - [class-transformer](https://github.com/typestack/class-transformer#readme)
 - [class-validator](https://github.com/typestack/class-validator)
-- [js-yaml](https://github.com/nodeca/js-yaml)
-- [widdershins](https://github.com/Mermade/widdershins)
-- [@redocly/cli](https://github.com/Redocly/redocly-cli)
+- [tsconfig-paths](https://github.com/dividab/tsconfig-paths)
+- [js-yaml](https://github.com/nodeca/js-yaml) - Manipula conteúdos YAML
+- [widdershins](https://github.com/Mermade/widdershins) - Conversor de arquivos Markdown
+- [@redocly/cli](https://github.com/Redocly/redocly-cli) - Cria documentação em HTML baseado no arquivo do Swagger
 
 ## Stay in touch
 
