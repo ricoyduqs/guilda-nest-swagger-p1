@@ -1,0 +1,263 @@
+openapi: 3.0.0
+paths:
+  /user:
+    post:
+      description: Create a new user
+      operationId: UserController_create
+      parameters: []
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateUserDto'
+      responses:
+        '201':
+          description: Returns changed annuity data.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserDto'
+        '400':
+          description: Error creating user
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserBadRequestResponseInterface'
+      summary: Create a new user
+      tags:
+        - user
+    get:
+      description: Return all users
+      operationId: UserController_findAll
+      parameters: []
+      responses:
+        '200':
+          description: Returns all users in the system.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateUserDto'
+      summary: Return all users
+      tags:
+        - user
+  /user/{id}:
+    get:
+      description: Return one of many users
+      operationId: UserController_findOne
+      parameters:
+        - name: id
+          required: true
+          in: path
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns a specific user from the system.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SearchUserDto'
+        '404':
+          description: User not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/UserNotFoundRequestResponseInterface'
+      summary: Return one of many users
+      tags:
+        - user
+  /health:
+    get:
+      description: Route used to check the status of the system and its dependencies.
+      operationId: AppController_healthCheck
+      parameters: []
+      responses:
+        '200':
+          description: The service is operating normally
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResponseOk'
+        '503':
+          description: Service unavailable
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PingResponseErrorInterface'
+      summary: Check service status
+      tags:
+        - app
+info:
+  title: Api Swagger
+  description: Implementation swagger docs
+  version: 0.0.1
+  contact:
+    name: YDUQS
+    url: https://arquiteturaestacio.visualstudio.com/JUCA/_wiki/wikis/JUCA.wiki/22390/-Cerebrum-Tech-2025
+    email: tarcisio@yduqs.com.br
+tags:
+  - name: user
+    description: Collection of user endpoints
+  - name: app
+    description: Collection of service endpoints such as healthcheck
+components:
+  schemas:
+    CreateUserDto:
+      type: object
+      properties:
+        name:
+          type: string
+          example: Tarcisio
+          description: User full name
+        email:
+          type: string
+          example: tarcisio@yduqs.com.br
+          description: User email
+        age:
+          type: number
+          example: 30
+          description: User age
+      required:
+        - name
+        - email
+        - age
+    UserBadRequestResponseInterface:
+      type: object
+      properties:
+        message:
+          type: array
+          example:
+            - age must be a number conforming to the specified constraints
+          description: Erros types received from class-validator
+        error:
+          type: string
+          example: Bad Request
+          description: Message error
+        statusCode:
+          type: number
+          example: 400
+          description: Status Code
+      required:
+        - message
+        - error
+        - statusCode
+    SearchUserDto:
+      type: object
+      properties:
+        id:
+          type: number
+          example: 1
+          description: User number ID
+        name:
+          type: string
+          example: Tarcisio
+          description: User full name
+        email:
+          type: string
+          example: tarcisio@yduqs.com.br
+          description: User email
+        age:
+          type: number
+          example: 30
+          description: User age
+      required:
+        - id
+        - name
+        - email
+        - age
+    UserNotFoundRequestResponseInterface:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+          enum:
+            - error
+          description: Status error of the request
+        timestamp:
+          type: string
+          example: '2025-03-28T14:30:00.000Z'
+          description: Timestamp do erro
+        error:
+          type: number
+          example: Not found user ID 10
+          description: Error message
+      required:
+        - status
+        - timestamp
+        - error
+    ServiceCheck:
+      type: object
+      properties:
+        status:
+          type: string
+          example: up
+          enum:
+            - up
+            - down
+          description: Current service status
+        details:
+          type: string
+          example: Service is online and responding
+          description: Service status details
+      required:
+        - status
+        - details
+    PingResponseOk:
+      type: object
+      properties:
+        status:
+          type: string
+          example: success
+          enum:
+            - success
+            - error
+          description: Overall verification status
+        timestamp:
+          type: string
+          example: '2025-03-28T14:30:00.000Z'
+          description: Verification Timestamp
+        checks:
+          type: object
+          properties:
+            service:
+              $ref: '#/components/schemas/ServiceCheck'
+            swagger:
+              $ref: '#/components/schemas/ServiceCheck'
+          required: []
+      required:
+        - status
+        - timestamp
+        - checks
+    PingResponseErrorInterface:
+      type: object
+      properties:
+        status:
+          type: string
+          example: error
+          enum:
+            - error
+          description: Verification error status
+        timestamp:
+          type: string
+          example: '2025-03-28T14:30:00.000Z'
+          description: Error timestamp
+        checks:
+          type: object
+          properties:
+            service:
+              example:
+                status: down
+                details: Error checking service health
+            error:
+              type: string
+              example: Service Unavailable
+              description: Error message
+      required:
+        - status
+        - timestamp
+        - checks
+externalDocs:
+  description: Tech DOC
+  url: https://arquiteturaestacio.visualstudio.com/JUCA/_wiki/wikis/JUCA.wiki/22555/-DOC-missoes-recompensas-edge

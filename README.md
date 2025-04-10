@@ -59,6 +59,21 @@ $ npm run start
 $ npm run start:dev
 ```
 
+## Generating documents based on swagger file
+```bash
+# Gerar arquivo no formato OpenApi para ser importado na API Gateway da AWS
+$ npm run swagger:openapi
+
+# Gerar arquivo de documentação no formato HTML para uma visão diferenciada do Swagger
+$ npm run swagger:html
+
+# Gerar arquivo de documentação mais simples, no formato MD para Wiki
+$ npm run swagger:md:mini
+
+# Gerar arquivo de documentação mais completa, no formato MD para Wiki
+$ npm run swagger:md:full
+```
+
 ## Run Swagger playground
 Abra seu browser e acesso seu endereço local: [http://0.0.0.0:3000/api](http://0.0.0.0:3000/api)
 
