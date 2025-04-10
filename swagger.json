@@ -1,6 +1,39 @@
 {
   "openapi": "3.0.0",
   "paths": {
+    "/health": {
+      "get": {
+        "description": "Route used to check the status of the system and its dependencies.",
+        "operationId": "AppController_healthCheck",
+        "parameters": [],
+        "responses": {
+          "200": {
+            "description": "The service is operating normally",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponseOk"
+                }
+              }
+            }
+          },
+          "503": {
+            "description": "Service unavailable",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/PingResponseErrorInterface"
+                }
+              }
+            }
+          }
+        },
+        "summary": "Check service status",
+        "tags": [
+          "app"
+        ]
+      }
+    },
     "/user": {
       "post": {
         "description": "Create a new user",
@@ -41,7 +74,13 @@
         "summary": "Create a new user",
         "tags": [
           "user"
-        ]
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "HTTP_PROXY",
+          "httpMethod": "POST",
+          "uri": "http://your-api-url/user",
+          "payloadFormatVersion": 1
+        }
       },
       "get": {
         "description": "Return all users",
@@ -62,7 +101,13 @@
         "summary": "Return all users",
         "tags": [
           "user"
-        ]
+        ],
+        "x-amazon-apigateway-integration": {
+          "type": "HTTP_PROXY",
+          "httpMethod": "GET",
+          "uri": "http://your-api-url/user",
+          "payloadFormatVersion": 1
+        }
       }
     },
     "/user/{id}": {
@@ -106,39 +151,6 @@
           "user"
         ]
       }
-    },
-    "/health": {
-      "get": {
-        "description": "Route used to check the status of the system and its dependencies.",
-        "operationId": "AppController_healthCheck",
-        "parameters": [],
-        "responses": {
-          "200": {
-            "description": "The service is operating normally",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PingResponseOk"
-                }
-              }
-            }
-          },
-          "503": {
-            "description": "Service unavailable",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/PingResponseErrorInterface"
-                }
-              }
-            }
-          }
-        },
-        "summary": "Check service status",
-        "tags": [
-          "app"
-        ]
-      }
     }
   },
   "info": {
@@ -173,6 +185,104 @@
   ],
   "components": {
     "schemas": {
+      "ServiceCheck": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "up",
+            "enum": [
+              "up",
+              "down"
+            ],
+            "description": "Current service status"
+          },
+          "details": {
+            "type": "string",
+            "example": "Service is online and responding",
+            "description": "Service status details"
+          }
+        },
+        "required": [
+          "status",
+          "details"
+        ]
+      },
+      "PingResponseOk": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "success",
+            "enum": [
+              "success",
+              "error"
+            ],
+            "description": "Overall verification status"
+          },
+          "timestamp": {
+            "type": "string",
+            "example": "2025-03-28T14:30:00.000Z",
+            "description": "Verification Timestamp"
+          },
+          "checks": {
+            "type": "object",
+            "properties": {
+              "service": {
+                "$ref": "#/components/schemas/ServiceCheck"
+              },
+              "swagger": {
+                "$ref": "#/components/schemas/ServiceCheck"
+              }
+            },
+            "required": []
+          }
+        },
+        "required": [
+          "status",
+          "timestamp",
+          "checks"
+        ]
+      },
+      "PingResponseErrorInterface": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "example": "error",
+            "enum": [
+              "error"
+            ],
+            "description": "Verification error status"
+          },
+          "timestamp": {
+            "type": "string",
+            "example": "2025-03-28T14:30:00.000Z",
+            "description": "Error timestamp"
+          },
+          "checks": {
+            "type": "object",
+            "properties": {
+              "service": {
+                "example": {
+                  "status": "down",
+                  "details": "Error checking service health"
+                }
+              },
+              "error": {
+                "type": "string",
+                "example": "Service Unavailable",
+                "description": "Error message"
+              }
+            }
+          }
+        },
+        "required": [
+          "status",
+          "timestamp",
+          "checks"
+        ]
+      },
       "CreateUserDto": {
         "type": "object",
         "properties": {
@@ -282,104 +392,6 @@
           "status",
           "timestamp",
           "error"
-        ]
-      },
-      "ServiceCheck": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "up",
-            "enum": [
-              "up",
-              "down"
-            ],
-            "description": "Current service status"
-          },
-          "details": {
-            "type": "string",
-            "example": "Service is online and responding",
-            "description": "Service status details"
-          }
-        },
-        "required": [
-          "status",
-          "details"
-        ]
-      },
-      "PingResponseOk": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "success",
-            "enum": [
-              "success",
-              "error"
-            ],
-            "description": "Overall verification status"
-          },
-          "timestamp": {
-            "type": "string",
-            "example": "2025-03-28T14:30:00.000Z",
-            "description": "Verification Timestamp"
-          },
-          "checks": {
-            "type": "object",
-            "properties": {
-              "service": {
-                "$ref": "#/components/schemas/ServiceCheck"
-              },
-              "swagger": {
-                "$ref": "#/components/schemas/ServiceCheck"
-              }
-            },
-            "required": []
-          }
-        },
-        "required": [
-          "status",
-          "timestamp",
-          "checks"
-        ]
-      },
-      "PingResponseErrorInterface": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "string",
-            "example": "error",
-            "enum": [
-              "error"
-            ],
-            "description": "Verification error status"
-          },
-          "timestamp": {
-            "type": "string",
-            "example": "2025-03-28T14:30:00.000Z",
-            "description": "Error timestamp"
-          },
-          "checks": {
-            "type": "object",
-            "properties": {
-              "service": {
-                "example": {
-                  "status": "down",
-                  "details": "Error checking service health"
-                }
-              },
-              "error": {
-                "type": "string",
-                "example": "Service Unavailable",
-                "description": "Error message"
-              }
-            }
-          }
-        },
-        "required": [
-          "status",
-          "timestamp",
-          "checks"
         ]
       }
     }
