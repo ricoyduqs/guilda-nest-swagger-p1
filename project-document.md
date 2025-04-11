@@ -4,30 +4,6 @@
 ---
 
 
-## 📂 app
-
-### GET `/health`
-**Resumo:** Check service status
-
-Route used to check the status of the system and its dependencies.
-
-// Request
-GET /health
-
-```json
-[
-  {
-    "id": 1,
-    "name": "John Doe",
-    "email": "john@example.com",
-    "age": 30
-  }
-]
-```
-
----
-
-
 ## 📂 user
 
 ### POST `/user`
@@ -62,7 +38,7 @@ Content-Type: application/json
 ```json
 {
   "status": "error",
-  "timestamp": "2025-04-10T22:43:27.680Z",
+  "timestamp": "2025-04-11T14:24:45.091Z",
   "error": "Invalid data provided"
 }
 ```
@@ -110,7 +86,7 @@ GET /user/{id}
 ```json
 {
   "status": "error",
-  "timestamp": "2025-04-10T22:43:27.681Z",
+  "timestamp": "2025-04-11T14:24:45.093Z",
   "error": "Resource not found"
 }
 ```

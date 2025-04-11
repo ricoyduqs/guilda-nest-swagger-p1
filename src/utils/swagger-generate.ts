@@ -21,7 +21,6 @@ async function generateSwagger() {
       'tarcisio@yduqs.com.br',
     )
     .addTag('user', 'Collection of user endpoints')
-    .addTag('app', 'Collection of service endpoints such as healthcheck')
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);
