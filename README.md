@@ -1,4 +1,4 @@
-  <p align="center">Guilda de Backend - Documentação com Swagger P1 - 28 Mar 2025<p align="center">
+  <p align="center">Guilda de Backend - Documentação com Swagger P1 - 28 Mar e 11 de Abr de 2025<p align="center">
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
 <a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
@@ -59,6 +59,28 @@ $ npm run start
 $ npm run start:dev
 ```
 
+## Generating swagger file standalone
+```bash
+# Gerar arquivo do Swagger standalone
+# No lugar de sua-uri você deve colocar o domínio da aplicação ou mesmo no seu .env
+$ export URI=http://sua-uri && npm run swagger:generate
+```
+
+## Generating documents based on swagger file
+```bash
+# Gerar arquivo no formato OpenApi para ser importado na API Gateway da AWS
+$ npm run swagger:openapi
+
+# Gerar arquivo de documentação no formato HTML para uma visão diferenciada do Swagger
+$ npm run swagger:html
+
+# Gerar arquivo de documentação mais simples, no formato MD para Wiki
+$ npm run swagger:md:mini
+
+# Gerar arquivo de documentação mais completa, no formato MD para Wiki
+$ npm run swagger:md:full
+```
+
 ## Run Swagger playground
 Abra seu browser e acesso seu endereço local: [http://0.0.0.0:3000/api](http://0.0.0.0:3000/api)
 
@@ -69,6 +91,13 @@ Abra seu browser e acesso seu endereço local: [http://0.0.0.0:3000/api](http://
 - [Documentacão do OpenAPI no Nest](https://docs.nestjs.com/openapi/introduction)
 - Ferramenta de Score de OpenAPI [PB33F.io](https://pb33f.io).
 
+## Libraries
+- [class-transformer](https://github.com/typestack/class-transformer#readme)
+- [class-validator](https://github.com/typestack/class-validator)
+- [tsconfig-paths](https://github.com/dividab/tsconfig-paths)
+- [js-yaml](https://github.com/nodeca/js-yaml) - Manipula conteúdos YAML
+- [widdershins](https://github.com/Mermade/widdershins) - Conversor de arquivos Markdown
+- [@redocly/cli](https://github.com/Redocly/redocly-cli) - Cria documentação em HTML baseado no arquivo do Swagger
 
 ## Stay in touch
 

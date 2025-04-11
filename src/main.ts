@@ -36,7 +36,6 @@ async function bootstrap() {
     .addServer('http://0.0.0.0:3000', 'Local')
     .addServer('http:/www.yduqs.com.br', 'Production') // Aqui você pode inserir quantos servidores quiser.
     .addTag('user', 'Collection of user endpoints') // As tags servem para mapear os endpoints rais linkando ao controller.
-    .addTag('app', 'Collection of service endpoints such as healthcheck')
     .build();
 
   const documentFactory = () => SwaggerModule.createDocument(app, config);

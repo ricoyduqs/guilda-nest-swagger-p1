@@ -1,0 +1,49 @@
+name: Node Actions
+description: Etapa que roda comandos do node
+
+inputs:
+  node_version:
+    description: "Versão do Node.js"
+    required: true
+    default: "20.14"
+
+runs:
+  using: "composite"
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ inputs.node_version }}
+        cache: "npm"
+
+    - name: Install Node Modules
+      id: node-install
+      shell: bash
+      run: |
+        npm ci
+
+    - name: Run Build
+      id: node-build
+      shell: bash
+      run: |
+        npm run build
+
+    - name: Run Swagger Document Generator
+      id: swagger-doc
+      shell: bash
+      run: |
+
+        echo "Gerando Swagger JSON"
+        npm run swagger:generate
+
+        echo "Gerar arquivo no formato OpenApi para ser importado na API Gateway da AWS"
+        npm run swagger:openapi
+
+        echo "Gerar arquivo de documentação no formato HTML para uma visão diferenciada do Swagger"
+        npm run swagger:html
+
+        echo "Gerar arquivo de documentação mais simples, no formato MD para Wiki"
+        npm run swagger:md:mini

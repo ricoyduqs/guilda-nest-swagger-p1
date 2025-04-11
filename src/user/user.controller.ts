@@ -12,6 +12,7 @@ import {
 import { UserBadRequestResponseInterface } from './interfaces/user-bad-request.interface';
 import { UserNotFoundRequestResponseInterface } from './interfaces/user-not-found-request.interface';
 import { SearchUserDto } from './dto/search-user.dto';
+import { ApiGatewayIntegration } from 'src/decorators/api-gateway.decorator';
 
 @ApiTags('user')
 @Controller('user')
@@ -19,6 +20,7 @@ export class UserController {
   constructor(private readonly userService: UserService) {}
 
   @Post()
+  @ApiGatewayIntegration('POST', '/user')
   @ApiOperation({
     summary: 'Create a new user',
     description: 'Create a new user',
@@ -39,6 +41,7 @@ export class UserController {
   }
 
   @Get()
+  @ApiGatewayIntegration('GET', '/user')
   @ApiOperation({
     summary: 'Return all users',
     description: 'Return all users',

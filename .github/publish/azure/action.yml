@@ -1,0 +1,38 @@
+name: Publish Swagger Markdown on Wiki
+description: Publicar o arquivo de documentação no formato Markdown no Wiki
+
+runs:
+  using: composite
+
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Script to Publish on Wiki
+      id: publish-wiki
+      shell: bash
+      run: |
+
+        organization="${{secrets.AZURE_DEVOPS_ORGANIZATION}}"
+        project="${{secrets.AZURE_DEVOPS_PROJECT}}"
+        wiki="${{secrets.AZURE_DEVOPS_WIKI}}"
+        pagepath="wiki/Guildas"
+        README_PATH="project-document.md"
+        pat=$(PAT)
+        url="https://dev.azure.com/$organization/$project/_apis/wiki/wikis/$wiki/pages?path=$pagepath&api-version=7.2-preview.1"
+
+        echo $url
+
+        echo "Encode the Personal Access Token (PAT)""
+        encoded_pat=$(printf "%s"":$pat" | base64)
+
+        echo "Read the content of the READdMe file"
+        content=$(cat "$README_PATH")
+
+        echo "Convert the content to JSON"
+        json_content=$(jq -n --arg content "$content" '{"content": $content}')
+
+        echo "Update the wiki page"
+        curl -X PUT $url -H 'Content-Type: application/json' -H "Authorization: Basic $encoded_pat" -d "$json_content"
+
+        echo "Wiki page '$pagepath' updated."

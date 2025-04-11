@@ -1,5 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import {
+  ApiExcludeController,
   ApiOkResponse,
   ApiOperation,
   ApiServiceUnavailableResponse,
@@ -10,6 +11,7 @@ import { PingResponseOk } from './interfaces/ping-response-ok.interface';
 import { PingResponseErrorInterface } from './interfaces/ping-response-error.interface';
 
 @ApiTags('app')
+@ApiExcludeController()
 @Controller()
 export class AppController {
   constructor(private appService: AppService) {}
