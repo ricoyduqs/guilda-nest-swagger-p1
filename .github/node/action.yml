@@ -37,13 +37,13 @@ runs:
       run: |
 
         echo "Gerando Swagger JSON"
-        npm run generate:swagger
+        npm run swagger:generate
 
         echo "Gerar arquivo no formato OpenApi para ser importado na API Gateway da AWS"
-        $ npm run swagger:openapi
+        npm run swagger:openapi
 
         echo "Gerar arquivo de documentação no formato HTML para uma visão diferenciada do Swagger"
-        $ npm run swagger:html
+        npm run swagger:html
 
         echo "Gerar arquivo de documentação mais simples, no formato MD para Wiki"
-        $ npm run swagger:md:mini
+        npm run swagger:md:mini
