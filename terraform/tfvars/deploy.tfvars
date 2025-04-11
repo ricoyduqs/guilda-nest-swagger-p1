@@ -33,10 +33,39 @@ ecs_object_config = {
 }
 
 host_header = {
-  inbound_host_header = ["api.scientia.estaciodev.net"]
+  inbound_host_header = ["guilda.scientia.estaciodev.net"]
 }
 
 alb_listener_port = {
   port     = 3000
   protocol = "HTTP"
 }
+
+api_gateway_configuration = {
+  api_type                     = "public"
+  api_endpoint_type            = ["regional"]
+  api_key_source               = null
+  disable_execute_api_endpoint = true
+  api_gateway_policy           = null
+
+  deploy_api_stage_name = "DEV"
+
+  is_there_dns_name    = true
+  subdomain_name       = "guilda"
+  api_gateway_dns_type = "REGIONAL"
+
+}
+
+authorization_config = [{
+  is_there_authorizer  = false
+  authorizer_role_name = ""
+  authorization_name   = "ExampleAuthorizer"
+  authorization_type   = "AUTHORIZE"
+  identity_source      = "method.request.header.Authorization"
+  }, {
+  is_there_authorizer  = false
+  authorizer_role_name = ""
+  authorization_name   = "ExampleAuthorizer2"
+  authorization_type   = "AUTHORIZE"
+  identity_source      = "method.request.header.Authorization"
+}]

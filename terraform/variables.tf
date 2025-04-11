@@ -45,3 +45,16 @@ variable "alb_listener_port" {
     protocol = string
   })
 }
+
+variable "api_gateway_configuration" {
+
+}
+
+variable "authorization_config" {
+
+}
+
+variable "api_gateway_vpc_endpoint_ids" {
+  type    = list(string)
+  default = []
+}

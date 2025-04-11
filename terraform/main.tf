@@ -42,3 +42,19 @@ module "ecs" {
     firelens_configuration_options = var.ecs_logs.firelens_configuration_options
   }
 }
+
+module "apigateway" {
+  source = "./modules/apigateway"
+
+  env         = var.general_config.env
+  application = var.general_config.application
+
+  acm_certificate_arn          = data.aws_acm_certificate.cert.arn
+  domain_name                  = data.aws_route53_zone.this.name
+  swagger_uri                  = data.aws_lb.alb.dns_name
+  api_gateway_configuration    = var.api_gateway_configuration
+  authorization_config         = var.authorization_config
+  api_gateway_vpc_endpoint_ids = var.api_gateway_vpc_endpoint_ids
+  route53_zone_id              = data.aws_route53_zone.this.id
+
+}
