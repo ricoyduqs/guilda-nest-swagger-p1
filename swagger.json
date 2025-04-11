@@ -78,7 +78,7 @@
         "x-amazon-apigateway-integration": {
           "type": "HTTP_PROXY",
           "httpMethod": "POST",
-          "uri": "${URI}/user",
+          "uri": "undefined/user",
           "payloadFormatVersion": 1
         }
       },
@@ -105,7 +105,7 @@
         "x-amazon-apigateway-integration": {
           "type": "HTTP_PROXY",
           "httpMethod": "GET",
-          "uri": "${URI}/user",
+          "uri": "undefined/user",
           "payloadFormatVersion": 1
         }
       }
@@ -173,16 +173,7 @@
       "description": "Collection of service endpoints such as healthcheck"
     }
   ],
-  "servers": [
-    {
-      "url": "http://0.0.0.0:3000",
-      "description": "Local"
-    },
-    {
-      "url": "http:/www.yduqs.com.br",
-      "description": "Production"
-    }
-  ],
+  "servers": [],
   "components": {
     "schemas": {
       "ServiceCheck": {
