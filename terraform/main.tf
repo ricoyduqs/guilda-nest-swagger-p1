@@ -56,5 +56,8 @@ module "apigateway" {
   authorization_config         = var.authorization_config
   api_gateway_vpc_endpoint_ids = var.api_gateway_vpc_endpoint_ids
   route53_zone_id              = data.aws_route53_zone.this.id
+  stage_variables = {
+    "URI" = "${data.aws_lb.alb.dns_name}"
+  }
 
 }

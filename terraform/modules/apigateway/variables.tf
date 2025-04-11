@@ -7,3 +7,4 @@ variable "route53_zone_id" {}
 variable "authorization_config" {}
 variable "application" {}
 variable "swagger_uri" {}
+variable "stage_variables" {}

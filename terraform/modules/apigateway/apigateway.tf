@@ -25,6 +25,8 @@ resource "aws_api_gateway_stage" "deploy_stage" {
   deployment_id = aws_api_gateway_deployment.deploy_api.id
   rest_api_id   = aws_api_gateway_rest_api.api.id
   stage_name    = var.api_gateway_configuration.deploy_api_stage_name
+
+  variables = var.stage_variables
 }
 
 resource "aws_api_gateway_deployment" "deploy_api" {

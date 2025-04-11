@@ -9,9 +9,7 @@ env:
   aws_region: us-east-1
   terraform_version: 1.6.5
   terraform_directory: ./terraform
-  tfvars_file_name: deploy.hcl
-  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+  tfvars_file_name: deploy.tfvars
 
 jobs:
   quality:
@@ -37,5 +35,4 @@ jobs:
           aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
-          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
           tfvars_file_name: ${{ env.tfvars_file_name }}
