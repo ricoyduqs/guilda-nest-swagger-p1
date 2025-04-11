@@ -23,21 +23,6 @@ jobs:
         with:
           node_version: "20.14"
 
-  publish_documents:
-    if: ${{ env.publish_documents == 'true' }}
-    needs: node_step
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3
-
-      - name: Publish Swagger Markdown on Wiki
-        uses: ./.github/publish/azure
-        with:
-          organization: ${{ secrets.AZURE_DEVOPS_ORGANIZATION }}
-          project: ${{ secrets.AZURE_DEVOPS_PROJECT }}
-          wiki: ${{ secrets.AZURE_DEVOPS_WIKI }}
-          pat: ${{ secrets.AZURE_DEVOPS_PAT }}
-
   publish_ecr:
     runs-on: ubuntu-latest
     needs: node_step
