@@ -1,0 +1,41 @@
+name: Terraform Apply
+
+on:
+  push:
+    branches:
+      - main
+
+env:
+  aws_region: us-east-1
+  terraform_version: 1.6.5
+  terraform_directory: ./terraform
+  tfvars_file_name: deploy.hcl
+  GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+
+jobs:
+  quality:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: SonarQube - Quality Gate
+        uses: ./.github/quality/quality-gate
+
+  terraform_apply:
+    runs-on: ubuntu-latest
+    needs: quality
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Terraform Apply
+        uses: ./.github/apply
+        with:
+          terraform_version: ${{ env.terraform_version }}
+          terraform_directory: ${{ env.terraform_directory }}
+          aws_region: ${{ env.aws_region }}
+          aws_access_key_id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws_secret_access_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_session_token: ${{ secrets.AWS_SESSION_TOKEN }}
+          github_token: ${{ secrets.MY_GITHUB_TOKEN }}
+          tfvars_file_name: ${{ env.tfvars_file_name }}

@@ -4,6 +4,8 @@
 /build
 /docs
 
+/terraform/.terraform
+/terraform/.terraform.lock.hcl
 # Logs
 logs
 *.log

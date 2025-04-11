@@ -78,7 +78,7 @@
         "x-amazon-apigateway-integration": {
           "type": "HTTP_PROXY",
           "httpMethod": "POST",
-          "uri": "http://uri.application.aws.com/user",
+          "uri": "${URI}/user",
           "payloadFormatVersion": 1
         }
       },
@@ -105,7 +105,7 @@
         "x-amazon-apigateway-integration": {
           "type": "HTTP_PROXY",
           "httpMethod": "GET",
-          "uri": "http://uri.application.aws.com/user",
+          "uri": "${URI}/user",
           "payloadFormatVersion": 1
         }
       }

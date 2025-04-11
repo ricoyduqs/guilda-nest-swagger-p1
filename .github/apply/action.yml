@@ -1,0 +1,72 @@
+name: "CD - Infra Base"
+description: "Validar plano de subida para deploy de insfraestrutura base"
+inputs:
+  terraform_version:
+    description: "Versão do Terraform"
+    required: true
+    default: "1.6.5"
+  tfvars_file_name:
+    description: "Nome do arquivo de variáveis"
+    required: true
+  terraform_directory:
+    description: "Diretório do Terraform"
+    required: true
+  aws_region:
+    description: "Região da AWS"
+    required: true
+  aws_access_key_id:
+    description: "ID da chave de acesso da AWS"
+    required: true
+  aws_secret_access_key:
+    description: "Chave de acesso secreta da AWS"
+    required: true
+  aws_session_token:
+    description: "Token de sessão da AWS"
+    required: true
+  github_token:
+    description: "Token de acesso ao GitHub para usar API"
+    required: true
+  pr_number:
+    description: "Número da PR"
+    required: true
+
+runs:
+  using: composite
+  steps:
+    - name: Checkout
+      uses: actions/checkout@v3
+
+    - name: Configure AWS Credentials
+      uses: aws-actions/configure-aws-credentials@v1
+      with:
+        aws-access-key-id: ${{ inputs.aws_access_key_id }}
+        aws-secret-access-key: ${{ inputs.aws_secret_access_key }}
+        aws-session-token: ${{ inputs.aws_session_token }}
+        aws-region: ${{ inputs.aws_region }}
+
+    - name: Download Artifact
+      uses: actions/download-artifact@v3
+      with:
+        name: ${{ inputs.pr_number }}-tf-plan
+        path: ${{ inputs.terraform_directory }}/${{ inputs.pr_number }}-tf-plan
+
+    - name: Setup Terraform
+      uses: hashicorp/setup-terraform@v2
+      with:
+        terraform_version: ${{ inputs.terraform_version }}
+        terraform_wrapper: false
+
+    - name: Terraform Init
+      id: init
+      working-directory: ${{ inputs.terraform_directory }}
+      shell: bash
+      run: |
+        terraform init --var-file=./tfvars/deploy.tfvars
+
+    - name: Terraform Apply
+      id: apply
+      working-directory: ${{ inputs.terraform_directory }}
+      shell: bash
+      run: |
+
+        terraform apply ${{ inputs.pr_number }}-tf-plan
