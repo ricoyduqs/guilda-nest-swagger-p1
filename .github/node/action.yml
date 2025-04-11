@@ -47,6 +47,3 @@ runs:
 
         echo "Gerar arquivo de documentação mais simples, no formato MD para Wiki"
         $ npm run swagger:md:mini
-
-        echo "Gerar arquivo de documentação mais completa, no formato MD para Wiki"
-        $ npm run swagger:md:full
