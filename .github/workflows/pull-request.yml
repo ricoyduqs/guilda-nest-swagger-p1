@@ -12,6 +12,10 @@ env:
   ECR_REPOSITORY: guilda-swagger-dev
   publish_documents: false
 
+permissions:
+  id-token: write
+  contents: read
+
 jobs:
   node_step:
     runs-on: ubuntu-latest
